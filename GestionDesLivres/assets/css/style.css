@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+*{
+    font-family: 'Inter' , sans-serif;
+}
+h1{
+    font-size: 1.5em;
+}
+
+.sidebar{
+    width: 4.5em;
+}
+.sidebar .thumbnail-profile-picture{
+    height: 50px;
+    width: 50px;
+}
+.sidebar #username{
+    font-size: 12px;
+    font-weight: bold;
+}
+.dashboard .stats{
+    width: 180px;
+    background-color: rgba(217, 217, 217, 0.3);
+}
+.dashboard .stats-icon .bi::before{
+    font-size: 38px;
+}
+.main{
+    margin-left: 4.5em;
+    max-width: 1040px;
+}
+.book-picture , .profile-picture{
+    height: 300px;
+    width: 200px;
+    background-color: rgba(217, 217, 217, 0.3);
+}
+.profile-picture{
+    height: 200px;
+    width: 200px;
+}
+.inputs-modal input{
+    font-size: 15px;
+}
+.inputs-modal {
+    height: max-content;
+}
+@media (min-width:425px) {
+    .profile-picture{
+        height: 300px;
+        width: 300px;
+    }
+}
+@media (min-width:767px) {
+    .main{
+        margin-left: 10.5em;
+    }
+    .sidebar{
+        width: 10.5em;
+    }
+    .sidebar .thumbnail-profile-picture{
+        height: 30px;
+        width: 30px;
+    }
+    .sidebar .nav-link{
+        margin: 0 10px;
+        border-radius: 10px!important;
+        height: 30px;
+        border: 0!important;
+    }
+    .book-picture{
+        height: 550px;
+        width: 350px;
+    }
+}
