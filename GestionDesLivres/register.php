@@ -14,24 +14,26 @@
     <title>Gestion | Register</title>
 </head>
 <body class="bg-light">
-    <div class="container p-3 rounded bg-white shadow-lg" style="max-width: 500px; margin-top:25vh;">
+    <div class="container p-3 rounded bg-white shadow-lg" style="max-width: 500px; margin-top:20vh;">
         <form action="" method="POST">
             <div>
                 <h1 class="mb-3">Register</h1>
             </div>
             <div class="d-flex flex-column gap-2">
                 <div class="d-flex gap-3">
-                    <input type="text" class="form-control mb-3" placeholder="First Name" name="first_name" id="">
-                    <input type="text" class="form-control mb-3" placeholder="Last Name" name="last_name" id="">
+                    <input type="text" class="form-control mb-3" placeholder="First Name" name="first_name">
+                    <input type="text" class="form-control mb-3" placeholder="Last Name" name="last_name">
                 </div>
-                <input type="date" class="form-control mb-3" name="adresse" id="">
-                <input type="email" class="form-control mb-3" placeholder="E-mail Adresse" name="adresse" id="">
-                <input type="password" class="form-control mb-3" placeholder="Password" name="password" id="">
-                <input type="password" class="form-control mb-3" placeholder="Confirm Password" name="confirm_password" id="">
+                <input type="date" class="form-control mb-3" name="dob">
+                <input type="email" class="form-control mb-3" placeholder="E-mail Adresse" name="adresse">
+                <input type="password" class="form-control mb-3" placeholder="Password" name="password">
+                <input type="password" class="form-control mb-3" placeholder="Confirm Password" name="confirm_password">
             </div>
             <div class="d-flex gap-3 mb-2">
                 <button type="submit" class="register-btn btn btn-primary" name="signup" >Sign up</button>
-                <button class="btn btn-light border text-primary" >Sign in</button>
+                <a href="login.php">
+                    <div class="btn btn-light border text-primary" >Sign in</div>
+                </a>
             </div>
         </form>
     </div>

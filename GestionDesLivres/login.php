@@ -24,7 +24,9 @@
             </div>
             <div class="d-flex gap-3 mb-2">
                 <button type="submit" class="connect-btn btn btn-primary" name="login">Connect</button>
-                <button class="btn btn-light border text-primary" name="signup"  >Sign up</button>
+                <a href="register.php">
+                    <div class="btn btn-light border text-primary" >Sign up</div>
+                </a>
             </div>
         </form>
     </div>
