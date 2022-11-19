@@ -1,5 +1,7 @@
 <?php
     include('script.php');
+
+    if(isset($_SESSION['id_admin'])) header('location:index.php');
 ?>
 
 <!DOCTYPE html>
@@ -19,8 +21,8 @@
                 <h1 class="mb-3">Log in</h1>
             </div>
             <div class="d-flex flex-column gap-2">
-                <input type="email" class="form-control mb-3" placeholder="E-mail Adresse" name="adress" id="">
-                <input type="password" class="form-control mb-3" placeholder="Password" name="password" id="">
+                <input type="email" class="form-control mb-3" placeholder="E-mail Adresse" name="adresse">
+                <input type="password" class="form-control mb-3" placeholder="Password" name="password">
             </div>
             <div class="d-flex gap-3 mb-2">
                 <button type="submit" class="connect-btn btn btn-primary" name="login">Connect</button>

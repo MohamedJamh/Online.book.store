@@ -1,5 +1,9 @@
 <?php
     include('database.php');
+    include('script.php');
+
+    if(!isset($_SESSION['id_admin'])) header('location:login.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -34,12 +38,12 @@
                 </a>
             </li>
         </ul>
-        <a href="" class="text-decoration-none">
-            <div class="btn btn-light text-dark w-100 border rounded-0 d-flex justify-content-center gap-1">
+        <form method="POST">
+            <button class="btn btn-light text-dark w-100 border rounded-0 d-flex justify-content-center gap-1" name="logout" type="submit">
                 <i class="sidebar-navs-icons bi bi-box-arrow-right" style="font-size: 20px;"></i>
                 <span class="sidebar-navs-title d-none d-md-flex">log out</span>
-            </div>
-        </a>
+            </button>
+        </form>
     </div>
     <div class="container">
         <div class="main dashboard">

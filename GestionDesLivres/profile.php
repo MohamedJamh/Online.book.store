@@ -1,3 +1,7 @@
+<?php
+    include('script.php');
+    if(!isset($_SESSION['id_admin'])) header('location:login.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,12 +33,12 @@
                 </a>
             </li>
         </ul>
-        <a href="" class="text-decoration-none">
-            <div class="btn btn-light text-dark w-100 border rounded-0 d-flex justify-content-center gap-1">
+        <form method="POST">
+            <button class="btn btn-light text-dark w-100 border rounded-0 d-flex justify-content-center gap-1" name="logout" type="submit">
                 <i class="sidebar-navs-icons bi bi-box-arrow-right" style="font-size: 20px;"></i>
                 <span class="sidebar-navs-title d-none d-md-flex">log out</span>
-            </div>
-        </a>
+            </button>
+        </form>
     </div>
     <div class="container">
         <div class="main profile">
@@ -47,18 +51,19 @@
                     <div class="inputs-modal container p-3 rounded bg-white shadow" style="max-width: 500px;">
                         <form action="" method="post">
                             <div class="d-flex flex-column gap-3">
-                                <input type="text" class="form-control mb-2" placeholder="First name" >
-                                <input type="text" class="form-control mb-2" placeholder="Last name">
-                                <input type="date" class="form-control" >
+                                <input type="text" class="form-control mb-2" name="f_name" value="<?php echo $_SESSION['f_name'] ?>" placeholder="First name" >
+                                <input type="text" class="form-control mb-2" name="l_name" value="<?php echo $_SESSION['l_name'] ?>" placeholder="Last name">
+                                <input type="date" class="form-control" name="dob" value="<?php echo $_SESSION['dob'] ?>" >
                                 <input type="file" class="form-control" accept="image/*">
-
                             </div>
                             <div class="row mt-4 mb-2">
                                 <div class="col-12 col-md-3 mb-2">
-                                    <button type="submit" class="btn btn-primary w-100">Save</button>
+                                    <button type="submit" name="save-profile" class="btn btn-primary w-100">Save</button>
                                 </div>
                                 <div class="col col-md-3">
-                                    <button type="submit" class="btn btn-light w-100 text-dark border">Cancel</button>
+                                    <a href="index.php">
+                                        <div class="btn btn-light w-100 text-dark border">Cancel</div>
+                                    </a>
                                 </div>
                             </div>
                         </form>
