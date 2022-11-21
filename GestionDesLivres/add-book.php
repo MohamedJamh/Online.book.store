@@ -49,10 +49,10 @@
                 <h1 class="pt-3 ps-2">Add New Book.</h1>
                 <div class="d-flex gap-3 flex-wrap justify-content-around ">
                     <div class="card book-picture border-0 shadow-lg overflow-hidden">
-                        <!-- <img src="./assets/img/books/green book.jpg" class="card-img-top img-fluid" alt="..."> -->
+                        <!-- <img src="./assets/img/books/book_categorie" class="card-img-top img-fluid" alt="..."> -->
                     </div>
                     <div class="inputs-modal container p-3 rounded bg-white shadow" style="max-width: 500px;">
-                        <form action="script.php" method="POST" enctype="multipart/form-data">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             <div class="d-flex flex-column gap-3">
                                 <input type="text" class="form-control mb-2" placeholder="Books title" name="title">
                                 <input type="text" class="form-control mb-2" placeholder="Written by" name="autor">
@@ -63,9 +63,9 @@
                                 </select>
                                 <input type="file" name="book-cover" class="form-control" accept="image/*">
                                 <div class="d-flex gap-1">
-                                    <input type="text" class="form-control mb-2" name="price" placeholder="Price">
-                                    <input type="text" class="form-control mb-2" name="available" placeholder="Available">
-                                    <input type="text" class="form-control mb-2" name="sold" placeholder="Sold">
+                                    <input type="number" class="form-control mb-2" name="price" placeholder="Price">
+                                    <input type="number" class="form-control mb-2" name="available" placeholder="Available">
+                                    <input type="number" class="form-control mb-2" name="sold" placeholder="Sold">
                                 </div>
                             </div>
                             <div class="row mt-4 mb-2">

@@ -58,7 +58,7 @@
                         </div>
                         <div class="stats-body d-flex flex-column">
                             <span class="stats-title">Available Books</span>
-                            <span class="stats-details">45</span>
+                            <span class="stats-details"><?php echo available_books_stats()?></span>
                         </div>
                     </div>
                     <div id="soldBooksStats " class="stats d-flex gap-2  rounded-3 p-2">
@@ -67,7 +67,7 @@
                         </div>
                         <div class="stats-body d-flex flex-column">
                             <span class="stats-title">Sold books</span>
-                            <span class="stats-details">12</span>
+                            <span class="stats-details"><?php echo sold_books_stats()?></span>
                         </div>
                     </div>
                     <div id="earningsStats " class="stats d-flex gap-2  rounded-3 p-2">
@@ -76,7 +76,7 @@
                         </div>
                         <div class="stats-body d-flex flex-column">
                             <span class="stats-title">Earnings</span>
-                            <span class="stats-details">$1832</span>
+                            <span class="stats-details">$<?php echo earnings_books_stats()?></span>
                         </div>
                     </div>
                     <div id="bestCategorieStats " class="stats d-flex gap-2  rounded-3 p-2">
@@ -94,20 +94,6 @@
                 </div>
                 <div class="book-section d-flex gap-3 flex-wrap justify-content-around">
                     <?php display_books(); ?>
-                    <!-- <div class="card book overflow-hidden" style="max-width: 200px;">
-                        <a href="book-overview.php?id=12">
-                            <img src="./assets/img/books/green book.jpg" class="card-img-top img-fluid" alt="...">
-                        </a>
-                    </div>
-                    <div class="card book overflow-hidden" style="max-width: 200px;">
-                        <img src="./assets/img/books/green book.jpg" class="card-img-top img-fluid" alt="...">
-                    </div>
-                    <div class="card book overflow-hidden" style="max-width: 200px;">
-                        <img src="./assets/img/books/green book.jpg" class="card-img-top img-fluid" alt="...">
-                    </div>
-                    <div class="card book overflow-hidden" style="max-width: 200px;height:max-content">
-                        <img src="./assets/img/books/green book.jpg" class="card-img-top img-fluid" alt="...">
-                    </div> -->
                 </div>
             </div>
         </div>

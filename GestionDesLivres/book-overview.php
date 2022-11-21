@@ -49,36 +49,38 @@
                 <div class="d-flex flex-column gap-1 pe-3">
                     <h1 class="pt-3 ps-2">Book Overview.</h1>
                     <div class="d-flex gap-3 flex-wrap justify-content-around ">
-                        <div class="card book-picture border-0 shadow-lg overflow-hidden">
-                            <img src="./assets/img/books/green book.jpg" class="card-img-top img-fluid" alt="...">
+                        <div class="card book-picture border-0 shadow-lg overflow-hidden" style="height: max-content;">
+                            <img src="./assets/img/books/<?php echo $_SESSION['book_cover_path']; ?>" class="card-img-top img-fluid" alt="book <?php echo $_SESSION['book_description']; ?>">
                         </div>
                         <div class="inputs-modal container p-3 rounded bg-white shadow" style="max-width: 500px;">
-                            <form action="" method="post">
+                            <form action="" method="POST" enctype="multipart/form-data">
                                 <div class="d-flex flex-column gap-3">
-                                    <input type="text" class="form-control mb-2" placeholder="Books title" value="<?php echo $_SESSION['book_title']; ?>" >
-                                    <input type="text" class="form-control mb-2" placeholder="Written by">
-                                    <textarea class="form-control" placeholder="Description"></textarea>
-                                    <select name="" id="" class="form-control">
-                                        <option>Select Categorie</option>
-                                        <option></option>
-                                        <option></option>
+                                    <input type="text" class="form-control mb-2 visually-hidden" name="book-id-overview" value="<?php echo $_SESSION['book_id']; ?>" >
+                                    <input type="text" class="form-control mb-2" name="book-title-overview" placeholder="Books title" value="<?php echo $_SESSION['book_title']; ?>" >
+                                    <input type="text" class="form-control mb-2" name="book-autor-overview" placeholder="Written by" value="<?php echo $_SESSION['book_autor']; ?>">
+                                    <textarea class="form-control" name="book-description-overview" placeholder="Description"><?php echo $_SESSION['book_description'];?></textarea>
+                                    <select name="book-categorie-overview" id="" class="form-control" >
+                                        <option value="0">Select Categorie</option>
+                                        <?php generate_categories($_SESSION['book_categorie']);?>
                                     </select>
-                                    <input type="file" class="form-control" accept="image/*">
+                                    <input type="file" name="book-cover-overview" class="form-control" accept="image/*">
                                     <div class="d-flex gap-1">
-                                        <input type="text" class="form-control mb-2" placeholder="Price" >
-                                        <input type="text" class="form-control mb-2" placeholder="Available" >
-                                        <input type="text" class="form-control mb-2" placeholder="Sold">
+                                        <input type="number" class="form-control mb-2" name="book-price-overview" placeholder="Price" value="<?php echo $_SESSION['book_price']; ?>" >
+                                        <input type="number" class="form-control mb-2" name="book-available-overview" placeholder="Available" value="<?php echo $_SESSION['book_available']; ?>" >
+                                        <input type="number" class="form-control mb-2" name="book-sold-overview" placeholder="Sold" value="<?php echo $_SESSION['book_sold']; ?>">
                                     </div>
                                 </div>
                                 <div class="row mt-4 mb-2">
                                     <div class="col col-md-3 mb-2">
-                                        <button type="submit" class="btn btn-danger w-100">Delete</button>
+                                        <button type="submit" name="delete-book" class="btn btn-danger w-100">Delete</button>
                                     </div>
                                     <div class="col col-md-3 mb-2">
-                                        <button type="submit" class="btn btn-warning w-100 text-white">Update</button>
+                                        <button type="submit" name="update-book" class="btn btn-warning w-100 text-white">Update</button>
                                     </div>
                                     <div class="col col-md-3">
-                                        <button type="submit" class="btn btn-light border w-100">Cancel</button>
+                                        <a href="index.php">
+                                            <div class="btn btn-light border w-100">Cancel</div>
+                                        </a>
                                     </div>
                                 </div>
                             </form>

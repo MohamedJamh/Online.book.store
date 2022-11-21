@@ -10,21 +10,92 @@
     if(isset($_POST['save-profile'])) save_profile();
     if(isset($_POST['add-book'])) add_book();
     if(isset($_GET['id'])) book_overview();
+    if(isset($_POST['delete-book'])) delete_book();
+    if(isset($_POST['update-book'])) update_book();
 
 
     function book_overview(){
         global $cnx;
         global $book_title , $book_autor , $book_description , $book_cover_path , $book_price , $book_available , $book_sold , $book_categorie;
         $id_book = $_GET['id'];
-        $book_query = "SELECT `title`, `author`, `description`, `book_cover`, `price`, `available`, `sold` `id_categorie` FROM `book` WHERE `id_book` = $id_book";
+        $book_query = "SELECT `title`, `author`, `description`, `book_cover`, `price`, `available`, `sold`, `id_categorie` FROM `book` WHERE `id_book` = $id_book";
         $result = mysqli_query($cnx,$book_query);
-        while($row = mysqli_fetch_assoc($result)){
-            $_SESSION['book_title'] = $row['title'];
-            $_SESSION['book_title'] = $row['title'];
-            $_SESSION['book_title'] = $row['title'];
-            $_SESSION['book_title'] = $row['title'];
+        while($row = mysqli_fetch_array($result)){
+            $_SESSION['book_id'] = $id_book;
+            $_SESSION['book_title'] = $row[0];
+            $_SESSION['book_autor'] = $row[1];
+            $_SESSION['book_description'] = $row[2];
+            $_SESSION['book_cover_path'] = $row[3];
+            $_SESSION['book_price'] = $row[4];
+            $_SESSION['book_available'] = $row[5];
+            $_SESSION['book_sold'] = $row[6];
+            $_SESSION['book_categorie'] = $row[7];
         }
         header('location: book-overview.php');
+    }
+    function delete_book(){
+        global $cnx;
+        try {
+            $id_book = strip_tags($_POST['book-id-overview']);
+            $del_query = "DELETE FROM `book` WHERE `id_book` = $id_book";
+            mysqli_query($cnx,$del_query);
+            unlink("./assets/img/books/$id_book.jpg");
+            header('location: index.php');
+        } catch (\Throwable $th) {
+            header('location: index.php');
+        }
+    }
+    function update_book(){
+        global $cnx;
+        try {
+            if(empty($_POST['book-id-overview']) || empty($_POST['book-title-overview']) || empty($_POST['book-autor-overview']) || empty($_POST['book-description-overview']) || empty($_POST['book-categorie-overview']) || empty($_POST['book-price-overview']) || empty($_POST['book-available-overview']) || empty($_POST['book-sold-overview'])){
+                //return error with session to fill all inputs
+            }else{
+                global $cnx;
+                extract($_FILES['book-cover-overview']);
+                $id_book = $_POST['book-id-overview'];
+                if(!empty($name)){
+                    $cover_path_info = explode('.',$name);
+                    $cover_ext = strtolower(end($cover_path_info));
+                    $allowed_ext = array('jpg','png' , 'jpeg');
+                    
+                    if($error == 0){
+                        if(in_array($cover_ext,$allowed_ext)){
+    
+                            $cover_new_path = './assets/img/books/'. $id_book . '.jpg';
+                            move_uploaded_file($tmp_name,$cover_new_path);
+    
+                        }else{
+                            //return message with session to select another type
+                        }
+                    }else{
+                        //return message with session that something went wrong
+                    }
+                }
+    
+                $title = $_POST['book-title-overview'];
+                $autor = $_POST['book-autor-overview'];
+                $description = $_POST['book-description-overview'];
+                $categorie = $_POST['book-categorie-overview'];
+                $price = $_POST['book-price-overview'];
+                $available = $_POST['book-available-overview'];
+                $sold = $_POST['book-sold-overview'];
+    
+                $_SESSION['book_title'] = $title;
+                $_SESSION['book_autor'] = $autor;
+                $_SESSION['book_description'] = $description;
+                $_SESSION['book_price'] = $price;
+                $_SESSION['book_available'] = $available;
+                $_SESSION['book_sold'] = $sold;
+                $_SESSION['book_categorie'] = $categorie;
+    
+                $book_query = "UPDATE `book` SET `title`='$title',`author`='$autor',`description`='$description',
+                `price`='$price',`available`='$available',`sold`='$sold',`id_categorie`='$categorie' WHERE `id_book`=$id_book";
+                mysqli_query($cnx,$book_query);
+            }
+        } catch (\Throwable $th) {
+            header('location:index.php');
+        }
     }
     function empty_user_input(){
         if(empty($_POST['first_name']) || empty($_POST['last_name']) || empty($_POST['dob']) || empty($_POST['adresse']) || empty($_POST['confirm_password']) ){
@@ -132,7 +203,7 @@
             mysqli_query($cnx,$req);
         }
     }
-    function generate_categories(){
+    function generate_categories($selected = NULL){
         global $cnx;
         $cat_query = "SELECT `id_categorie`, `name_categorie` FROM `categorie`";
         $cat_result = mysqli_query($cnx,$cat_query);
@@ -140,7 +211,11 @@
             while($row = mysqli_fetch_assoc($cat_result)){
                 $id_cat = $row['id_categorie'];
                 $name_cat = $row['name_categorie'];
-                echo "<option value='$id_cat'>$name_cat</option>";
+                if($id_cat == $selected){
+                    echo "<option value='$id_cat' selected >$name_cat</option>";
+                }else{
+                    echo "<option value='$id_cat'>$name_cat</option>";
+                }
             }
         }
     }
@@ -149,7 +224,6 @@
         extract($_FILES['book-cover']);
         if(empty($_POST['title']) || empty($_POST['autor']) || empty($_POST['description']) || empty($_POST['categorie']) || empty($name) || empty($_POST['price']) || empty($_POST['available']) || empty($_POST['sold'])){
             //return error with session to fill all inputs
-            echo 'empty';
         }else{
             global $cnx;
 
@@ -206,7 +280,7 @@
                 $book_cover = $row['book_cover'];
                 $description = $row['description'];
                 echo "
-                    <div class='card book overflow-hidden' style='max-width: 200px;'>
+                    <div class='card book overflow-hidden' style='max-width: 200px;height:max-content;'>
                         <a href='script.php?id=$id_book'>
                             <img src='./assets/img/books/$book_cover' class='card-img-top img-fluid' alt='book $description'>
                         </a>
@@ -214,6 +288,44 @@
                 ";
             }
         }
+    }
+    function available_books_stats(){
+        global $cnx;
+        $query = "SELECT count(*) FROM `book`";
+        $result = mysqli_query($cnx,$query);
+        while($row = mysqli_fetch_array($result)){
+            return $row[0];
+        }
+    }
+    function sold_books_stats(){
+        global $cnx;
+        $sold_books = 0;
+        $query = "SELECT `sold` FROM `book`";
+        $result = mysqli_query($cnx,$query);
+        while($row = mysqli_fetch_assoc($result)){
+            $sold_books += $row['sold'];
+        }
+        return $sold_books;
+    }
+    function earnings_books_stats(){
+        global $cnx;
+        $earnings = 0;
+        $query = "SELECT `price`,`sold` FROM `book`";
+        $result = mysqli_query($cnx,$query);
+        while($row = mysqli_fetch_assoc($result)){
+            $earnings += $row['price'] * $row['sold'];
+        }
+        return $earnings;
+    }
+    function categorie_earnings(){
+        // global $cnx;
+        // $earnings = 0;
+        // $book_query = "SELECT `price`,`sold` FROM `book`";
+        // $book_query = "SELECT `price`,`sold` FROM `book`";
+        // $result = mysqli_query($cnx,$query);
+        // while($row = mysqli_fetch_assoc($result)){
+        //     $earnings += $row['price'] * $row['sold'];
+        // }
     }
     function log_out(){
         unset($_SESSION['id_admin']);
