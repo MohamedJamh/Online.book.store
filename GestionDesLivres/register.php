@@ -1,5 +1,7 @@
 <?php
     include('script.php');
+    if(isset($_SESSION['id_admin'])) header('location:index.php');
+
 ?>
 
 <!DOCTYPE html>

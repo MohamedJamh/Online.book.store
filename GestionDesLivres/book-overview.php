@@ -1,3 +1,10 @@
+<?php
+    include('script.php');
+
+    if(!isset($_SESSION['id_admin'])) header('location:login.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,8 +20,8 @@
     <body class="bg-light">
         <div class="sidebar d-flex flex-column flex-shrink-0 bg-white shadow fixed-top" style="height:100vh">
             <a href="/" class="d-flex gap-2 justify-content-center justify-content-md-start align-items-center p-2 link-dark text-decoration-none">
-                <img src="./assets/img/avatar.jpg" class="thumbnail-profile-picture rounded-circle" alt="profile picture">
-                <span id="username" class="d-none d-md-flex">SARA ENRIKEY</span>
+                <img src="./assets/img/profile-thumbnail/<?php echo $_SESSION['thumbnail']  ?>" class="thumbnail-profile-picture rounded-circle" alt="profile picture">
+                <span id="username" class="d-none d-md-flex"><?php echo $_SESSION['f_name'] . " "; echo $_SESSION['l_name'] ?></span>
             </a>
             <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
                 <li class="nav-item">
@@ -48,7 +55,7 @@
                         <div class="inputs-modal container p-3 rounded bg-white shadow" style="max-width: 500px;">
                             <form action="" method="post">
                                 <div class="d-flex flex-column gap-3">
-                                    <input type="text" class="form-control mb-2" placeholder="Books title" >
+                                    <input type="text" class="form-control mb-2" placeholder="Books title" value="<?php echo $_SESSION['book_title']; ?>" >
                                     <input type="text" class="form-control mb-2" placeholder="Written by">
                                     <textarea class="form-control" placeholder="Description"></textarea>
                                     <select name="" id="" class="form-control">

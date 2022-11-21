@@ -16,8 +16,8 @@
 <body>
     <div class="sidebar d-flex flex-column flex-shrink-0 bg-white shadow fixed-top" style="height:100vh">
         <a href="/" class="d-flex gap-2 justify-content-center justify-content-md-start align-items-center p-2 link-dark text-decoration-none">
-            <img src="./assets/img/avatar.jpg" class="thumbnail-profile-picture rounded-circle" alt="profile picture">
-            <span id="username" class="d-none d-md-flex">SARA ENRIKEY</span>
+            <img src="./assets/img/profile-thumbnail/<?php echo $_SESSION['thumbnail']  ?>" class="thumbnail-profile-picture rounded-circle" alt="profile picture">
+            <span id="username" class="d-none d-md-flex"><?php echo $_SESSION['f_name'] . " "; echo $_SESSION['l_name'] ?></span>
         </a>
         <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
             <li class="nav-item">
@@ -46,15 +46,15 @@
                 <h1 class="pt-3 ps-2">Profile.</h1>
                 <div class="d-flex gap-3 flex-wrap justify-content-around ">
                     <div class="card profile-picture border-0 shadow-lg overflow-hidden rounded-circle">
-                        <img src="./assets/img/books/green book.jpg" class="card-img-top img-fluid" alt="...">
+                        <img src="./assets/img/profile-thumbnail/<?php echo $_SESSION['thumbnail']  ?>" class="card-img-top img-fluid" alt="...">
                     </div>
                     <div class="inputs-modal container p-3 rounded bg-white shadow" style="max-width: 500px;">
-                        <form action="" method="post">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             <div class="d-flex flex-column gap-3">
                                 <input type="text" class="form-control mb-2" name="f_name" value="<?php echo $_SESSION['f_name'] ?>" placeholder="First name" >
                                 <input type="text" class="form-control mb-2" name="l_name" value="<?php echo $_SESSION['l_name'] ?>" placeholder="Last name">
                                 <input type="date" class="form-control" name="dob" value="<?php echo $_SESSION['dob'] ?>" >
-                                <input type="file" class="form-control" accept="image/*">
+                                <input type="file" class="form-control" name="profile-image" accept="image/*">
                             </div>
                             <div class="row mt-4 mb-2">
                                 <div class="col-12 col-md-3 mb-2">

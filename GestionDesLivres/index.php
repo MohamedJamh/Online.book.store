@@ -1,5 +1,4 @@
 <?php
-    include('database.php');
     include('script.php');
 
     if(!isset($_SESSION['id_admin'])) header('location:login.php');
@@ -21,12 +20,12 @@
 <body class="bg-light">
     <div class="sidebar d-flex flex-column flex-shrink-0 bg-white shadow fixed-top" style="height:100vh">
         <a href="/" class="d-flex gap-2 justify-content-center justify-content-md-start align-items-center p-2 link-dark text-decoration-none">
-            <img src="./assets/img/avatar.jpg" class="thumbnail-profile-picture rounded-circle" alt="profile picture">
-            <span id="username" class="d-none d-md-flex">SARA ENRIKEY</span>
+            <img src="./assets/img/profile-thumbnail/<?php echo $_SESSION['thumbnail']  ?>" class="thumbnail-profile-picture rounded-circle" alt="profile picture">
+            <span id="username" class="d-none d-md-flex"><?php echo $_SESSION['f_name'] . " "; echo $_SESSION['l_name'] ?></span>
         </a>
         <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
             <li class="nav-item">
-                <a href="#" class="nav-link profile-nav-link d-flex gap-2 py-3 border-bottom rounded-0 align-items-center  justify-content-center">
+                <a href="profile.php" class="nav-link profile-nav-link d-flex gap-2 py-3 border-bottom rounded-0 align-items-center  justify-content-center">
                     <i class="sidebar-navs-icons bi bi-person-fill" style="font-size: 20px;"></i>
                     <span class="sidebar-navs-title d-none d-md-flex">Profile</span>
                 </a>
@@ -91,11 +90,14 @@
                     </div>
                 </div>
                 <div class="add-section d-flex flex-row-reverse">
-                    <a href="" class="text-decoration-none " style="font-size: 25px;font-weight:bold;">+</a>
+                    <a href="add-book.php" class="text-decoration-none " style="font-size: 25px;font-weight:bold;">+</a>
                 </div>
                 <div class="book-section d-flex gap-3 flex-wrap justify-content-around">
-                    <div class="card book overflow-hidden" style="max-width: 200px;">
-                        <img src="./assets/img/books/green book.jpg" class="card-img-top img-fluid" alt="...">
+                    <?php display_books(); ?>
+                    <!-- <div class="card book overflow-hidden" style="max-width: 200px;">
+                        <a href="book-overview.php?id=12">
+                            <img src="./assets/img/books/green book.jpg" class="card-img-top img-fluid" alt="...">
+                        </a>
                     </div>
                     <div class="card book overflow-hidden" style="max-width: 200px;">
                         <img src="./assets/img/books/green book.jpg" class="card-img-top img-fluid" alt="...">
@@ -105,7 +107,7 @@
                     </div>
                     <div class="card book overflow-hidden" style="max-width: 200px;height:max-content">
                         <img src="./assets/img/books/green book.jpg" class="card-img-top img-fluid" alt="...">
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
