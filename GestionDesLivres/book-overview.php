@@ -18,7 +18,10 @@
 </head>
 <body>
     <body class="bg-light">
-        <div class="sidebar d-flex flex-column flex-shrink-0 bg-white shadow fixed-top" style="height:100vh">
+        <?php
+            include('sidebar.php');
+        ?>
+        <!-- <div class="sidebar d-flex flex-column flex-shrink-0 bg-white shadow fixed-top" style="height:100vh">
             <a href="/" class="d-flex gap-2 justify-content-center justify-content-md-start align-items-center p-2 link-dark text-decoration-none">
                 <img src="./assets/img/profile-thumbnail/<?php echo $_SESSION['thumbnail']  ?>" class="thumbnail-profile-picture rounded-circle" alt="profile picture">
                 <span id="username" class="d-none d-md-flex"><?php echo $_SESSION['f_name'] . " "; echo $_SESSION['l_name'] ?></span>
@@ -43,7 +46,7 @@
                     <span class="sidebar-navs-title d-none d-md-flex">log out</span>
                 </div>
             </a>
-        </div>
+        </div> -->
         <div class="container">
             <div class="main book-overview">
                 <div class="d-flex flex-column gap-1 pe-3">

@@ -3,6 +3,7 @@
     include('database.php');
     session_start();
 
+
     //routting
     if(isset($_POST['login'])) log_in();
     if(isset($_POST['logout'])) log_out();
@@ -14,6 +15,11 @@
     if(isset($_POST['update-book'])) update_book();
 
 
+    function invalid($number){
+        if($number = "" || $number < 0){
+            return true;
+        }
+    }
     function book_overview(){
         global $cnx;
         global $book_title , $book_autor , $book_description , $book_cover_path , $book_price , $book_available , $book_sold , $book_categorie;
@@ -92,6 +98,9 @@
                 $book_query = "UPDATE `book` SET `title`='$title',`author`='$autor',`description`='$description',
                 `price`='$price',`available`='$available',`sold`='$sold',`id_categorie`='$categorie' WHERE `id_book`=$id_book";
                 mysqli_query($cnx,$book_query);
+
+                categorie_earnings();
+                header('location:index.php');
             }
         } catch (\Throwable $th) {
             header('location:index.php');
@@ -222,7 +231,7 @@
     function add_book(){
 
         extract($_FILES['book-cover']);
-        if(empty($_POST['title']) || empty($_POST['autor']) || empty($_POST['description']) || empty($_POST['categorie']) || empty($name) || empty($_POST['price']) || empty($_POST['available']) || empty($_POST['sold'])){
+        if(empty($_POST['title']) || empty($_POST['autor']) || empty($_POST['description']) || empty($_POST['categorie']) || empty($name) || invalid($_POST['price']) || $_POST['price'] == 0 || invalid($_POST['available']) || invalid($_POST['sold'])){
             //return error with session to fill all inputs
         }else{
             global $cnx;
@@ -259,6 +268,9 @@
 
                     $cover_new_path = './assets/img/books/'. $id_book . '.jpg';
                     move_uploaded_file($tmp_name,$cover_new_path);
+
+                    categorie_earnings();
+                    header('location:index.php');
                 }else{
                     //return message with session to select another type
                     echo 'another type';
@@ -267,7 +279,6 @@
                 //return message with session that something went wrong
                     echo 'error';
             }
-
         }
     }
     function display_books(){
@@ -318,14 +329,36 @@
         return $earnings;
     }
     function categorie_earnings(){
-        // global $cnx;
-        // $earnings = 0;
-        // $book_query = "SELECT `price`,`sold` FROM `book`";
-        // $book_query = "SELECT `price`,`sold` FROM `book`";
-        // $result = mysqli_query($cnx,$query);
-        // while($row = mysqli_fetch_assoc($result)){
-        //     $earnings += $row['price'] * $row['sold'];
-        // }
+        global $cnx;
+        $book_query = "SELECT `price`,`sold`,`id_categorie` FROM `book`";
+        $categorie_query = "SELECT `id_categorie`FROM `categorie`";
+
+        $book_result = mysqli_query($cnx,$book_query);
+        $categorie_result = mysqli_query($cnx,$categorie_query);
+
+
+        if(mysqli_num_rows($book_result) > 0 || mysqli_num_rows($categorie_result) > 0 ){
+            while($categorie_row = mysqli_fetch_assoc($categorie_result)){
+                $cat_earnings = 0;
+                mysqli_data_seek($book_result,0);
+                while($book_row = mysqli_fetch_assoc($book_result)){
+                    if($categorie_row['id_categorie'] == $book_row['id_categorie']){
+                        $cat_earnings += $book_row['price'] * $book_row['sold'];
+                    }
+                }
+                $id_cat = $categorie_row['id_categorie'];
+                $cat_earnings_query = "UPDATE `categorie` SET `earnings`='$cat_earnings' WHERE `id_categorie`='$id_cat'";
+                mysqli_query($cnx,$cat_earnings_query);
+            }
+        }
+    }
+    function best_categorie_stats(){
+        global $cnx;
+        $best_cat_query = "SELECT `name_categorie` from categorie WHERE `earnings` IN (SELECT MAX(earnings) from categorie)";
+
+        $best_cat_result = mysqli_query($cnx,$best_cat_query);
+        $best_cat_row = mysqli_fetch_array($best_cat_result);
+        return $best_cat_row[0];
     }
     function log_out(){
         unset($_SESSION['id_admin']);

@@ -17,7 +17,10 @@
     <title>Gestion Des Livres | Add New Book </title>
 </head>
 <body>
-    <div class="sidebar d-flex flex-column flex-shrink-0 bg-white shadow fixed-top" style="height:100vh">
+    <?php
+        include('sidebar.php');
+    ?>
+    <!-- <div class="sidebar d-flex flex-column flex-shrink-0 bg-white shadow fixed-top" style="height:100vh">
         <a href="/" class="d-flex gap-2 justify-content-center justify-content-md-start align-items-center p-2 link-dark text-decoration-none">
             <img src="./assets/img/profile-thumbnail/<?php echo $_SESSION['thumbnail']  ?>" class="thumbnail-profile-picture rounded-circle" alt="profile picture">
             <span id="username" class="d-none d-md-flex"><?php echo $_SESSION['f_name'] . " "; echo $_SESSION['l_name'] ?></span>
@@ -42,14 +45,14 @@
                 <span class="sidebar-navs-title d-none d-md-flex">log out</span>
             </div>
         </a>
-    </div>
+    </div> -->
     <div class="container">
         <div class="main add-book">
             <div class="d-flex flex-column gap-1 pe-3 mb-3">
                 <h1 class="pt-3 ps-2">Add New Book.</h1>
                 <div class="d-flex gap-3 flex-wrap justify-content-around ">
                     <div class="card book-picture border-0 shadow-lg overflow-hidden">
-                        <!-- <img src="./assets/img/books/book_categorie" class="card-img-top img-fluid" alt="..."> -->
+                        <img class="card-img-top img-fluid" alt="">
                     </div>
                     <div class="inputs-modal container p-3 rounded bg-white shadow" style="max-width: 500px;">
                         <form action="" method="POST" enctype="multipart/form-data">
@@ -61,7 +64,7 @@
                                     <option value="0">Select Categorie</option>
                                     <?php generate_categories() ;?>
                                 </select>
-                                <input type="file" name="book-cover" class="form-control" accept="image/*">
+                                <input id="cover-selector" type="file" name="book-cover" class="form-control" accept="image/*">
                                 <div class="d-flex gap-1">
                                     <input type="number" class="form-control mb-2" name="price" placeholder="Price">
                                     <input type="number" class="form-control mb-2" name="available" placeholder="Available">
