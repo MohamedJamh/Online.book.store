@@ -48,14 +48,14 @@
             unlink("./assets/img/books/$id_book.jpg");
             header('location: index.php');
         } catch (\Throwable $th) {
-            header('location: index.php');
+            $GLOBALS['error-message'] = 'Sorrry Something Went Wrong ! ';
         }
     }
     function update_book(){
         global $cnx;
         try {
             if(empty($_POST['book-id-overview']) || empty($_POST['book-title-overview']) || empty($_POST['book-autor-overview']) || empty($_POST['book-description-overview']) || empty($_POST['book-categorie-overview']) || empty($_POST['book-price-overview']) || empty($_POST['book-available-overview']) || empty($_POST['book-sold-overview'])){
-                //return error with session to fill all inputs
+                $GLOBALS['error-message'] = 'Make Sure All Inpust Are Valid ! ';
             }else{
                 global $cnx;
                 extract($_FILES['book-cover-overview']);
@@ -72,10 +72,10 @@
                             move_uploaded_file($tmp_name,$cover_new_path);
     
                         }else{
-                            //return message with session to select another type
+                            $GLOBALS['error-message'] = 'Please Select Images Only ! ';
                         }
                     }else{
-                        //return message with session that something went wrong
+                        $GLOBALS['error-message'] = 'Sorrry Something Went Wrong ! ';
                     }
                 }
     
@@ -100,7 +100,7 @@
                 mysqli_query($cnx,$book_query);
 
                 categorie_earnings();
-                header('location:index.php');
+                $GLOBALS['message'] = 'Book Has Been Updated Successfully ! ';
             }
         } catch (\Throwable $th) {
             header('location:index.php');
@@ -128,7 +128,7 @@
             $check_email_query = mysqli_query($cnx,$query);
 
             if(mysqli_num_rows($check_email_query) > 0){
-                //return message with session to use another email
+                $GLOBALS['error-message'] = 'Adresse Already Exist !';
             }else{
                 $req = "INSERT INTO `admin`(`first_name`, `last_name`, `dateNaissance`, `email`, `password`) 
                 VALUES ('$f_name','$l_name','$date_naissance','$adresse','$hashed_password')";
@@ -139,7 +139,6 @@
     function log_in(){
 
         global $cnx;
-
         $adresse = strip_tags($_POST['adresse']);
         $password = strip_tags($_POST['password']);
         $login_query = "SELECT * FROM `admin` WHERE `email` LIKE '$adresse'";
@@ -158,12 +157,13 @@
                     }else{
                         $_SESSION['thumbnail'] = $row['id_admin'] . ".jpg";
                     }
-
                     header('location: index.php');
+                }else{
+                    $GLOBALS['error-message'] = 'Adresse or Password is incorrect !';
                 }
             }
         }else{
-            // return message with session that adress is wrong
+            $GLOBALS['error-message'] = 'Adresse or Password is incorrect !';
         }
 
 
@@ -232,14 +232,13 @@
 
         extract($_FILES['book-cover']);
         if(empty($_POST['title']) || empty($_POST['autor']) || empty($_POST['description']) || empty($_POST['categorie']) || empty($name) || invalid($_POST['price']) || $_POST['price'] == 0 || invalid($_POST['available']) || invalid($_POST['sold'])){
-            //return error with session to fill all inputs
+            $GLOBALS['error-message'] = 'Make Sure All Inpust Are Valid ! ';
         }else{
             global $cnx;
 
             $cover_path_info = explode('.',$name);
             $cover_ext = strtolower(end($cover_path_info));
             $allowed_ext = array('jpg','png' , 'jpeg');
-            
             if($error == 0){
                 if(in_array($cover_ext,$allowed_ext)){
 
@@ -272,12 +271,10 @@
                     categorie_earnings();
                     header('location:index.php');
                 }else{
-                    //return message with session to select another type
-                    echo 'another type';
+                    $GLOBALS['error-message'] = 'Please Select Images Only ! ';
                 }
             }else{
-                //return message with session that something went wrong
-                    echo 'error';
+                $GLOBALS['error-message'] = 'Sorrry Something Went Wrong ! ';
             }
         }
     }
@@ -353,12 +350,16 @@
         }
     }
     function best_categorie_stats(){
-        global $cnx;
-        $best_cat_query = "SELECT `name_categorie` from categorie WHERE `earnings` IN (SELECT MAX(earnings) from categorie)";
-
-        $best_cat_result = mysqli_query($cnx,$best_cat_query);
-        $best_cat_row = mysqli_fetch_array($best_cat_result);
-        return $best_cat_row[0];
+        if(available_books_stats() != 0){
+            global $cnx;
+            $best_cat_query = "SELECT `name_categorie` from categorie WHERE `earnings` IN (SELECT MAX(earnings) from categorie)";
+    
+            $best_cat_result = mysqli_query($cnx,$best_cat_query);
+            $best_cat_row = mysqli_fetch_array($best_cat_result);
+            return $best_cat_row[0];
+        }else{
+            return '--';
+        }
     }
     function log_out(){
         unset($_SESSION['id_admin']);

@@ -39,7 +39,16 @@
             </div>
         </form>
     </div>
-    <!-- <div class="container bg-danger mt-3 p-2 rounded text-white shadow-lg" style="max-width: 500px; ">sdfsdf</div> -->
+    <?php if(isset($GLOBALS['error-message'])): ?>
+        <div class="container p-0 mt-3" style="max-width: 500px;">
+            <div class="alert bg-danger rounded shadow-lg m-0 d-flex justify-content-between text-white">
+                <?php
+                    echo $GLOBALS['error-message'];
+                ?>
+                <span class="btn btn-close bg-white " data-bs-dismiss='alert'></span>
+            </div>
+        </div>
+    <?php endif ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>

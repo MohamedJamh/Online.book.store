@@ -87,6 +87,28 @@
                                     </div>
                                 </div>
                             </form>
+                            <?php if(isset($GLOBALS['error-message'])): ?>
+                                <div class="container p-0 mt-3" style="max-width: 500px;">
+                                    <div class="alert border bg-warning rounded shadow-lg m-0 d-flex justify-content-between text-dark" >
+                                        <?php
+                                            echo $GLOBALS['error-message'];
+                                            unset($GLOBALS['error-message']);
+                                        ?>
+                                        <span class="btn btn-close bg-white " data-bs-dismiss='alert'></span>
+                                    </div>
+                                </div>
+                            <?php endif ?>
+                            <?php if(isset($GLOBALS['message'])): ?>
+                                <div class="container p-0 mt-3" style="max-width: 500px;">
+                                    <div class="alert border bg-success rounded shadow-lg m-0 d-flex justify-content-between text-white" >
+                                        <?php
+                                            echo $GLOBALS['message'];
+                                            unset($GLOBALS['message']);
+                                        ?>
+                                        <span class="btn btn-close bg-white " data-bs-dismiss='alert'></span>
+                                    </div>
+                                </div>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>

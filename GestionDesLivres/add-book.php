@@ -20,32 +20,6 @@
     <?php
         include('sidebar.php');
     ?>
-    <!-- <div class="sidebar d-flex flex-column flex-shrink-0 bg-white shadow fixed-top" style="height:100vh">
-        <a href="/" class="d-flex gap-2 justify-content-center justify-content-md-start align-items-center p-2 link-dark text-decoration-none">
-            <img src="./assets/img/profile-thumbnail/<?php echo $_SESSION['thumbnail']  ?>" class="thumbnail-profile-picture rounded-circle" alt="profile picture">
-            <span id="username" class="d-none d-md-flex"><?php echo $_SESSION['f_name'] . " "; echo $_SESSION['l_name'] ?></span>
-        </a>
-        <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
-            <li class="nav-item">
-                <a href="#" class="nav-link profile-nav-link d-flex gap-2 py-3 border-bottom rounded-0 align-items-center  justify-content-center">
-                    <i class="sidebar-navs-icons bi bi-person-fill" style="font-size: 20px;"></i>
-                    <span class="sidebar-navs-title d-none d-md-flex">Profile</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link dashboard-nav-link p-3 border-bottom rounded-0 align-items-center d-flex gap-2 justify-content-center">
-                    <i class="sidebar-navs-icons bi bi-speedometer2" style="font-size: 20px;"></i>
-                    <span class="sidebar-navs-title d-none d-md-flex">Dashboard</span>
-                </a>
-            </li>
-        </ul>
-        <a href="" class="text-decoration-none">
-            <div class="btn btn-light text-dark w-100 border rounded-0 d-flex justify-content-center gap-1">
-                <i class="sidebar-navs-icons bi bi-box-arrow-right" style="font-size: 20px;"></i>
-                <span class="sidebar-navs-title d-none d-md-flex">log out</span>
-            </div>
-        </a>
-    </div> -->
     <div class="container">
         <div class="main add-book">
             <div class="d-flex flex-column gap-1 pe-3 mb-3">
@@ -82,6 +56,16 @@
                                 </div>
                             </div>
                         </form>
+                        <?php if(isset($GLOBALS['error-message'])): ?>
+                            <div class="container p-0 mt-3" style="max-width: 500px;">
+                                <div class="alert border bg-warning rounded shadow-lg m-0 d-flex justify-content-between text-dark" >
+                                    <?php
+                                        echo $GLOBALS['error-message'];
+                                    ?>
+                                    <span class="btn btn-close bg-white " data-bs-dismiss='alert'></span>
+                                </div>
+                            </div>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>
