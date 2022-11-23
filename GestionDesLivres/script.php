@@ -114,7 +114,7 @@
     }
     function sign_up(){
         if(empty_user_input()){
-            //return message with session to fill all inputs
+            $GLOBALS['error-message'] = 'Make Sure All Fields Are Valid !';
         }else{
             global $cnx;
             $f_name = strip_tags($_POST['first_name']);

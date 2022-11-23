@@ -16,7 +16,7 @@
 </head>
 <body class="bg-light">
     <div class="sing-up-in-modal container p-3 rounded bg-white shadow-lg" style="max-width: 500px; margin-top:25vh;">
-        <form class="login" action="" method="POST">
+        <form id="login_form" class="login" action="" method="POST">
             <div>
                 <h1 class="mb-3">Log in</h1>
             </div>
@@ -43,5 +43,6 @@
         </div>
     <?php endif ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>

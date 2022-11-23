@@ -29,7 +29,7 @@
                         <img class="card-img-top img-fluid" alt="">
                     </div>
                     <div class="inputs-modal container p-3 rounded bg-white shadow" style="max-width: 500px;">
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form id="inputs_modal" action="" method="POST" enctype="multipart/form-data">
                             <div class="d-flex flex-column gap-3">
                                 <input type="text" class="form-control mb-2" placeholder="Books title" name="title">
                                 <input type="text" class="form-control mb-2" placeholder="Written by" name="autor">
@@ -61,6 +61,7 @@
                                 <div class="alert border bg-warning rounded shadow-lg m-0 d-flex justify-content-between text-dark" >
                                     <?php
                                         echo $GLOBALS['error-message'];
+                                        unset($GLOBALS['error-message']);
                                     ?>
                                     <span class="btn btn-close bg-white " data-bs-dismiss='alert'></span>
                                 </div>
